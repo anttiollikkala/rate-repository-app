@@ -13,10 +13,13 @@
   "dependencies": {
     "expo": "~44.0.0",
     "expo-status-bar": "~1.2.0",
+    "formik": "^2.2.9",
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
-    "react-native-web": "0.17.1"
+    "react-native-web": "0.17.1",
+    "react-router-native": "^6.3.0",
+    "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -24,6 +27,14 @@
     "eslint": "^8.15.0",
     "eslint-plugin-react": "^7.29.4",
     "eslint-plugin-react-native": "^4.0.0"
+  },
+  "resolutions": {
+    "react-devtools-core": "4.14.0"
+  },
+  "overrides": {
+    "react-native": {
+      "react-devtools-core": "4.14.0"
+    }
   },
   "private": true
 }

@@ -1,7 +1,7 @@
-import {View, StyleSheet, Pressable, ScrollView} from 'react-native';
-import Text from './Text';
+import {View, StyleSheet,  ScrollView} from 'react-native';
 import Constants from 'expo-constants';
 import {AppBarTab} from "./AppBarTab";
+import {useMe} from "../contexts/MeContext";
 
 const styles = StyleSheet.create({
     container: {
@@ -18,10 +18,13 @@ const styles = StyleSheet.create({
 });
 
 const AppBar = () => {
+    const [me] = useMe()
     return <View style={styles.container}>
         <ScrollView horizontal>
             <AppBarTab to="/">Repositories</AppBarTab>
-            <AppBarTab to="signin">Sign in</AppBarTab>
+            { !me
+                ? <AppBarTab to="/signin">Sign in</AppBarTab>
+                : <AppBarTab to="/signout">Sign out</AppBarTab>}
         </ScrollView>
     </View>;
 };

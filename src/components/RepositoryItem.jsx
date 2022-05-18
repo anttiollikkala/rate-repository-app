@@ -1,4 +1,4 @@
-import {Image, StyleSheet, View} from "react-native";
+import {Image, Pressable, StyleSheet, View} from "react-native";
 import theme from "../theme";
 import Text from "./Text";
 import {RepositoryItemStatistic} from "./RepositoryItemStatistic";
@@ -45,31 +45,42 @@ const styles = StyleSheet.create({
     infoItem: {
         marginBottom: 7,
         paddingRight: 40,
-        flex: 1,
-        flexWrap: 'wrap'
+        flexWrap: 'wrap',
+    },
+    openButton : {
+        backgroundColor: theme.colors.primary,
+        textAlign: 'center',
+        color: "white",
+        overflow: "hidden",
+        borderRadius: 5,
+        paddingTop: 10,
+        paddingBottom: 10,
+        fontWeight: "bold",
+        marginTop: 15
     }
 });
 
-export const RepositoryItem = (item) => {
-    return <View style={styles.container}>
-        <View style={styles.infoContainer}>
-            <Image
-                style={styles.tinyLogo}
-                source={{
-                    uri: item.ownerAvatarUrl,
-                }}
-            />
-            <View style={styles.info}>
-                <Text fontWeight="bold" fontSize="subheading" style={styles.infoItem}>{item.fullName}</Text>
-                <Text color={theme.colors.textSecondary} style={styles.infoItem}>{item.description}</Text>
-                <Text style={styles.language}>{item.language}</Text>
+export const RepositoryItem = ({ showOpenBtn = false, ...item}) => {
+    return <View style={styles.container} testID="repositoryItem">
+            <View style={styles.infoContainer}>
+                <Image
+                    style={styles.tinyLogo}
+                    source={{
+                        uri: item.ownerAvatarUrl,
+                    }}
+                />
+                <View style={styles.info}>
+                    <Text fontWeight="bold" fontSize="subheading" style={styles.infoItem}>{item.fullName}</Text>
+                    <Text color={theme.colors.textSecondary} style={styles.infoItem}>{item.description}</Text>
+                    <Text style={styles.language}>{item.language}</Text>
+                </View>
             </View>
+            <View style={styles.statistics}>
+                <RepositoryItemStatistic label="Forks" number={item.forksCount}/>
+                <RepositoryItemStatistic label="Stars" number={item.stargazersCount}/>
+                <RepositoryItemStatistic label="Rate" number={item.ratingAverage}/>
+                <RepositoryItemStatistic label="Reviews" number={item.reviewCount}/>
+            </View>
+        { showOpenBtn && <Text style={styles.openButton}>Open in GitHub</Text> }
         </View>
-        <View style={styles.statistics}>
-            <RepositoryItemStatistic label="Forks" number={item.forksCount}/>
-            <RepositoryItemStatistic label="Stars" number={item.stargazersCount}/>
-            <RepositoryItemStatistic label="Rate" number={item.ratingAverage}/>
-            <RepositoryItemStatistic label="Reviews" number={item.reviewCount}/>
-        </View>
-    </View>
 }
